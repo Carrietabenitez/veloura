@@ -7,8 +7,5 @@ export const initGA = () => {
 
   if (measurementId) {
     ReactGA.initialize(measurementId);
-    console.log("Analytics inicializado");
-  } else {
-    console.log("No se encontró el Measurement ID");
   }
 };
