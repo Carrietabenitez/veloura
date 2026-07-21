@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Truck, ShieldCheck, Minus, Plus, CheckCircle2, Loader2 } from 'lucide-react'
 import productJar from '../assets/product-jar-clean.png'
+import { trackEvent } from "../lib/events";
 
 // TODO: reemplaza con el número de WhatsApp real del negocio (código de país + número, sin espacios ni +)
 const WHATSAPP_NUMBER = '573215684375'
@@ -138,40 +139,50 @@ export default function OrderForm() {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const next = validate()
-    setErrors(next)
-    if (Object.keys(next).length > 0) return
+  e.preventDefault();
 
-    const departmentName = departments.find((d) => String(d.id) === departmentId)?.name
-    const cityName = citiesError ? form.manualCity : cities.find((c) => String(c.id) === cityId)?.name
+  const next = validate();
+  setErrors(next);
 
-    const message = [
-      '¡Hola! Quiero hacer un pedido contraentrega de goPure Tighten & Lift Neck Cream:',
-      `• Nombre: ${form.name}`,
-      `• Cedula: ${form.identification}`,
-      `• Correo: ${form.email}`,
-      `• Teléfono: ${form.phone}`,
-      `• Dirección: ${form.address}`,
-      `• Departamento: ${departmentName ?? ''}`,
-      `• Municipio: ${cityName ?? ''}`,
-      `• Cantidad: ${qty} frasco${qty > 1 ? 's' : ''}`,
-      `• Total estimado: ${formatPrice(total)}`,
-      form.notes.trim() ? `• Notas: ${form.notes}` : null,
-    ]
-      .filter(Boolean)
-      .join('\n')
+  if (Object.keys(next).length > 0) return;
 
-    setSubmitted(true)
+  const departmentName =
+    departments.find((d) => String(d.id) === departmentId)?.name;
 
-    // Abre WhatsApp con el pedido pre-llenado para que el negocio confirme la entrega.
-    // TODO: si prefieres recibir los pedidos en tu backend/Google Sheets/CRM en vez de
-    // (o además de) WhatsApp, reemplaza o complementa esto con tu propia llamada a la API.
-    window.open(
-      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
-      '_blank'
-    )
-  }
+  const cityName = citiesError
+    ? form.manualCity
+    : cities.find((c) => String(c.id) === cityId)?.name;
+
+  const message = [
+    "¡Hola! Quiero hacer un pedido contraentrega de goPure Tighten & Lift Neck Cream:",
+    `• Nombre: ${form.name}`,
+    `• Cedula: ${form.identification}`,
+    `• Correo: ${form.email}`,
+    `• Teléfono: ${form.phone}`,
+    `• Dirección: ${form.address}`,
+    `• Departamento: ${departmentName ?? ""}`,
+    `• Municipio: ${cityName ?? ""}`,
+    `• Cantidad: ${qty} frasco${qty > 1 ? "s" : ""}`,
+    `• Total estimado: ${formatPrice(total)}`,
+    form.notes.trim() ? `• Notas: ${form.notes}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  // 📊 Evento de conversión
+  trackEvent(
+    "pedido_contraentrega",
+    "Formulario",
+    `Cantidad: ${qty}`
+  );
+
+  setSubmitted(true);
+
+  window.open(
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+    "_blank"
+  );
+};
 
   if (submitted) {
     return (
