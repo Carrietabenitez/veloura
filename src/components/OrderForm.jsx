@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Truck, ShieldCheck, Minus, Plus, CheckCircle2, Loader2 } from 'lucide-react'
-import productJar from '../assets/product-jar-clean.png'
+import productJar from '../assets/product-jar-clean.webp'
 import { trackEvent } from "../lib/events";
 
 // TODO: reemplaza con el número de WhatsApp real del negocio (código de país + número, sin espacios ni +)
