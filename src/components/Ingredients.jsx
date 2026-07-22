@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Droplets, Coffee, Leaf } from 'lucide-react'
-import labBg from '../assets/ingredients-lab.png'
+import labBg from '../assets/ingredients-lab.webp'
 
 const INGREDIENTS = [
   {
