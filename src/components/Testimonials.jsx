@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star } from 'lucide-react'
-import testimonialImg from '../assets/testimonial-claudia.png'
+import testimonialImg from '../assets/testimonial-claudia.webp'
 
 const TEXT_TESTIMONIALS = [
   {

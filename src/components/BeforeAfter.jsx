@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import beforeAfterImg from '../assets/before-after-neck.png'
+import beforeAfterImg from '../assets/before-after-neck.webp'
 
 export default function BeforeAfter() {
   return (

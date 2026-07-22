@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import ctaModel from '../assets/cta-final-model.png'
+import ctaModel from '../assets/cta-final-model.webp'
 
 export default function CTA() {
   return (
