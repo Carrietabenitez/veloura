@@ -441,7 +441,7 @@ export default function OrderForm() {
   type="submit"
   className="mt-6 w-full rounded-full bg-leaf-500 px-6 py-4 text-sm font-semibold text-white shadow-card transition-all hover:-translate-y-0.5 hover:bg-leaf-600 hover:shadow-glow animate-pulse"
 >
-  Confirmar pedido contraentrega
+  Confirmar pedido contraentregaaa
 </button>
         </motion.form>
       </div>
